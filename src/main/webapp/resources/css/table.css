@@ -1,0 +1,139 @@
+.tabela {
+	margin: 0px;
+	padding: 0px;
+	width: 70%;
+	box-shadow: 10px 10px 5px #888888;
+	border: 1px solid #000000;
+	-moz-border-radius-bottomleft: 13px;
+	-webkit-border-bottom-left-radius: 13px;
+	border-bottom-left-radius: 13px;
+	-moz-border-radius-bottomright: 13px;
+	-webkit-border-bottom-right-radius: 13px;
+	border-bottom-right-radius: 13px;
+	-moz-border-radius-topright: 13px;
+	-webkit-border-top-right-radius: 13px;
+	border-top-right-radius: 13px;
+	-moz-border-radius-topleft: 13px;
+	-webkit-border-top-left-radius: 13px;
+	border-top-left-radius: 13px;
+	border-collapse: separate;
+}
+
+.tabela table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.tabela tr:last-child td:last-child {
+	-moz-border-radius-bottomright: 13px;
+	-webkit-border-bottom-right-radius: 13px;
+	border-bottom-right-radius: 13px;
+}
+
+.tabela table tr:first-child td:first-child {
+	-moz-border-radius-topleft: 13px;
+	-webkit-border-top-left-radius: 13px;
+	border-top-left-radius: 13px;
+}
+
+.tabela table tr:first-child td:last-child {
+	-moz-border-radius-topright: 13px;
+	-webkit-border-top-right-radius: 13px;
+	border-top-right-radius: 13px;
+}
+
+.tabela tr:last-child td:first-child {
+	-moz-border-radius-bottomleft: 13px;
+	-webkit-border-bottom-left-radius: 13px;
+	border-bottom-left-radius: 13px;
+}
+
+.tabela tr:hover td {
+	
+}
+
+.tabela tr:nth-child(odd) {
+	background-color: #e5e5e5;
+}
+
+.tabela tr:nth-child(even) {
+	background-color: #ffffff;
+}
+
+.tabela td {
+	vertical-align: middle;
+	border: 1px solid #000000;
+	border-width: 0px 1px 1px 0px;
+	text-align: center;
+	padding: 12px;
+	font-size: 14px;
+	font-family: Arial;
+	font-weight: normal;
+	color: #000000;
+}
+
+.tabela tr:last-child td {
+	border-width: 0px 1px 0px 0px;
+}
+
+.tabela tr td:last-child {
+	border-width: 0px 0px 1px 0px;
+}
+
+.tabela tr:last-child td:last-child {
+	border-width: 0px 0px 0px 0px;
+}
+
+.tabela tr:first-child td {
+	background: -o-linear-gradient(bottom, #4c4c4c 5%, #000000 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4c4c4c
+		), color-stop(1, #000000));
+	background: -moz-linear-gradient(center top, #4c4c4c 5%, #000000 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4c4c4c",
+		endColorstr="#000000");
+	background: -o-linear-gradient(top, #4c4c4c, 000000);
+	background-color: #4c4c4c;
+	border: 0px solid #000000;
+	text-align: center;
+	border-width: 0px 0px 1px 1px;
+	font-size: 16px;
+	font-family: Arial;
+	font-weight: bold;
+	color: #ffffff;
+	
+}
+
+.tabela tr:first-child:hover td {
+	background: -o-linear-gradient(bottom, #4c4c4c 5%, #000000 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4c4c4c
+		), color-stop(1, #000000));
+	background: -moz-linear-gradient(center top, #4c4c4c 5%, #000000 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4c4c4c",
+		endColorstr="#000000");
+	background: -o-linear-gradient(top, #4c4c4c, 000000);
+	background-color: #4c4c4c;
+}
+
+.tabela tr:first-child td:first-child {
+	border-width: 0px 0px 1px 0px;
+	font-size: 9px;
+}
+
+.tabela tr:first-child td:last-child {
+	border-width: 0px 0px 1px 1px;
+	font-size: 13px;
+}
+
+.tabela th {
+	font-size: 15px;
+	padding: 8px;
+	border: 3px;
+}
+
+.tabela tfoot{
+	font-size: 10px;
+}

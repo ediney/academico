@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/layout.xhtml">
+			
+			<ui:define name="corpo">
+				
+				<h:form id="frm">
+								
+				<br />
+				<br />
+					
+					<h:panelGrid columns="1" cellpadding="2">
+						
+						<p:panel id="cadastro-estagiosatividades-panel" header="Cadastro de Estágios e Atividades" style="margin-bottom:20px">
+						
+							<p:panelGrid columns="2" style="width:95%;">
+							
+								<h:panelGrid columns="4" cellpadding="2">
+
+            						<h:outputLabel for="estagioAtividade" value="Estágio/Atividade: " />
+            						<h:selectOneMenu value="#{beanValidationView.estagioAtividade}">
+            							<f:selectItem itemValue="selecione" itemLabel="Selecione..." />
+               						</h:selectOneMenu>
+               	
+               						<h:outputLabel for="programa" value="Programa: " />
+            						<h:selectOneMenu value="#{beanValidationView.programa}">
+            							<f:selectItem itemValue="selecione" itemLabel="Selecione..." />
+               						</h:selectOneMenu>
+               		
+               					</h:panelGrid>
+               		
+              					<h:panelGrid columns="6" cellpadding="2">
+            		          		
+            						<p:outputLabel for="btnDtInicio" value="Data de Início:" />
+            						<p:calendar locale="pt" id="btnDtInicio" size="10"
+            							pattern="dd/MM/yyyy" mask="true" 
+            							value="#{calendarView.date3}" showOn="btnDataInicio" />
+            	            		
+            						<p:outputLabel for="button" value="Data de Término:" />
+            						<p:calendar locale="pt" id="button" size="10"
+            							pattern="dd/MM/yyyy" mask="true" 
+            							value="#{calendarView.date3}" showOn="button" />
+            					</h:panelGrid>
+            	
+            					<h:panelGrid columns="8" cellpadding="2">
+            		
+            						<h3 style="margin-top:0px">Horários: </h3>
+            						<p:selectManyCheckbox id="horarios" value="#{checkboxView.selectedConsoles}">
+            							<f:selectItem itemLabel="Matutino" itemValue="matutino" />
+            							<f:selectItem itemLabel="Vespertino" itemValue="vespertino" />
+            							<f:selectItem itemLabel="Noturno" itemValue="noturno" />
+            						</p:selectManyCheckbox>
+            		
+            					</h:panelGrid>
+            	
+            					<h:panelGrid columns="8" cellpadding="2">
+            		
+            						<h3 style="margin-top:0px">Dias da Semana: </h3>
+            						<p:selectManyCheckbox id="diasDaSemana">
+            							<f:selectItems value="#{estagioAtividadeBean.availableValues}"
+            								var="dias">
+            								<f:selectItem itemLabel="Segunda-Feira" itemValue="#{dias.label}" />
+           		 							<f:selectItem itemLabel="Terça-Feira" itemValue="#{dias.label}" />
+            								<f:selectItem itemLabel="Quarta-Feira" itemValue="#{dias.label}" />
+            								<f:selectItem itemLabel="Quinta-Feira" itemValue="#{dias.label}" />
+            								<f:selectItem itemLabel="Sexta-Feira" itemValue="#{dias.label}" />
+            								<f:selectItem itemLabel="Sábado" itemValue="#{dias.label}" />
+            								<f:selectItem itemLabel="Domingo" itemValue="#{dias.label}" />
+            							</f:selectItems>
+        	    					</p:selectManyCheckbox>
+            		
+            					</h:panelGrid>            
+         
+            					<h:panelGrid columns="8" cellpadding="2">
+            		
+            						<h3 style="margin-top:0px">Alunos usará: </h3>
+         		   					<p:selectManyCheckbox id="usoAluno" value="#{checkboxView.selectedConsoles}">
+            							<f:selectItem itemLabel="Biblioteca" itemValue="biblioteca" />
+            							<f:selectItem itemLabel="Estacionamento" itemValue="estacionamento" />
+            						</p:selectManyCheckbox>
+            		
+            					</h:panelGrid>
+						
+	
+							</p:panelGrid>
+							<br/>
+							<!--
+							<p:commandButton icon="fa fa-check" value="Salvar" action="#{estagioAtividadeBean.salvar}"
+								update="@form" id="btn-salvar"/>
+							
+							<p:commandButton icon="fa fa-arrow-left" value="Voltar" action="#{estagioAtividadeBean.voltar}"
+								update="@form" immediate="true"/>
+							-->
+						</p:panel>
+					
+						<p:blockUI block="cadastro-estagiosatividades-panel" trigger="btn-salvar"/>
+					
+					</h:panelGrid>
+					
+				</h:form>
+				
+			</ui:define>
+			
+</ui:composition>

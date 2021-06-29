@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/layout.xhtml">
+			
+			<ui:define name="corpo">
+				
+				<h:form id="frm">								
+				<br />
+				<br />
+					<p:dataTable paginator="true" rows="15" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink}"
+						paginatorAlwaysVisible="false" var="disciplina" value="#{estagioAtividadeBean.entity}">		
+						<f:facet name="header">Gestão de Estágios/Atividades</f:facet>
+				
+						<p:column headerText="Nome">
+							<h:outputText value="#{estagioAtividade.descricao}" />
+						</p:column>
+				
+						<p:column headerText="Programa">
+							<p:commandButton update=":form:programas" oncomplete="PF('programas').show()" icon="ui-icon-search" value="Lista de Programas" title="Programas">
+								<f:setPropertyActionListener target="#{disciplinaController.disciplina}" value="#{estagioAtividade}" />
+							</p:commandButton>
+						</p:column>
+				
+						<p:column headerText="Opções">
+							<p:commandButton action="#{estagioAtividadeBean}" value="Excluir" process="@this" update="@form" icon="ui-icon-trash">
+								<p:confirm header="Excluir disciplina" message="Tem certeza?" icon="ui-icon-alert" />
+								<f:setPropertyActionListener target="#{disciplinaController.disciplina}" value="#{disciplina}" />
+							</p:commandButton>
+					
+							<p:commandButton action="alterar-disciplina" value="Alterar" icon="ui-icon-pencil" >
+								<f:setPropertyActionListener target="#{disciplinaController.disciplina}" value="#{disciplina}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+			
+					<p:dialog id="professores" header="Professores" widgetVar="professores" modal="true" closable="true" resizable="false" draggable="false">
+						<p:dataList value="#{disciplinaController.professores}" var="professor" type="ordered">
+							<h:outputText value="#{professor.nome}" />
+						</p:dataList>
+					</p:dialog>
+				
+				</h:form>
+			</ui:define>
+</ui:composition>

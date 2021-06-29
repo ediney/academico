@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/layout.xhtml">
+			
+			<ui:define name="corpo">
+				
+				<h:form id="frm">
+								
+				<br />
+				<br />
+				
+				<h:panelGrid columns="1" cellpadding="2">
+					
+					<h:outputText value="Imagem:"/>
+					<p:fileUpload fileUploadListener="#{alunoBean.enviarFoto}"
+						auto="true" update="pg-texto-previa pg-imagem-previa"
+						label="Selecione uma imagem" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+						invalidFileMessage="Formato de arquivo inválido" multiple="false"
+						sizeLimit="1000000" invalidSizeMessage="Tamanho de arquivo inválido"
+						dragDropSupport="true" mode="advanced"/>
+					<h:panelGroup id="pg-texto-previa">
+						<h:outputText value="Prévia:" rendered="#{alunoBean.aluno.foto != null}"/>
+					</h:panelGroup>
+					<h:panelGroup id="pg-imagem-previa">
+						<p:graphicImage  value="#{alunoBean.aluno.imagem}" cache="false"
+							style="width:100px; height:100px;" rendered="#{alunoBean.aluno.foto != null}"/>
+					</h:panelGroup>
+				
+					<!-- DADOS DO ALUNO -->
+					<p:panel header="Dados do Aluno">
+						<p:messages />
+					
+						<h:panelGrid columns="2" cellpadding="2">	
+							<h:outputLabel for="codigoInterno" size="15" value="Código Interno: " />
+							<p:inputText id="codigoInterno" size="8" value="#{alunoBean.aluno.idAluno}" label="Código Interno" />
+						</h:panelGrid>
+					
+						<h:panelGrid columns="8" cellpadding="2">
+						
+							<h:outputLabel for="registroGEP"  value="Registro GEP: " />
+							<p:inputText id="registroGEP" size="15" value="#{alunoBean.aluno.registroGEP}" label="Registro GEP" />
+						
+							<h:outputLabel for="registroRGA" value="Registro RGA: " />
+							<p:inputText id="registroRGA" size="15" value="#{alunoBean.aluno.registroRGA}" label="Registro RGA" />
+						
+							<h:outputLabel for="cpf" value="CPF: " />
+							<p:inputMask id="cpf" size="15" value="#{alunoBean.aluno.cpf}" mask="999.999.999-99" />
+						
+							<h:outputLabel for="rg" value="RG: " />
+							<p:inputText id="rg" size="15" value="#{alunoBean.aluno.rg}" label="RG" />
+					
+						</h:panelGrid>
+				
+						<h:panelGrid columns="8" cellpadding="2">
+	        			
+	        				<h:outputLabel for="name" value="Nome: " />
+     	    				<p:inputText id="nome" size="72" value="#{alunoBean.aluno.nome}" label="Nome" required="true" />
+        					<p:message for="nome" />
+            				<h:outputText value="#{alunoBean.aluno.nome}" />
+            	
+            				<h:outputLabel for="sexo" value="Sexo: " />
+            				<p:selectOneRadio id="sexo" value="#{alunoBean.aluno.sexo}">            		
+            					<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+            					<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+        					</p:selectOneRadio>
+            		
+            			</h:panelGrid>
+            	
+            			<h:panelGrid columns="8" cellpadding="2">
+            		
+            				<p:outputLabel for="button" value="Data de Nascimento:" />
+            				<p:calendar locale="pt" id="button" size="10"
+            					pattern="dd/MM/yyyy" mask="true" 
+            					value="#{alunoBean.aluno.dataNascimento}" showOn="button" />
+            	
+            				<h:panelGroup id="label-cidades-group">
+            					<h:outputText value="Naturalidade:"/>
+            				</h:panelGroup>
+            				<p:selectOneMenu id="combo-cidades" value="#{alunoBean.aluno.cidadeNatal}"
+            					disabled="#{alunoBean.aluno.cidadeNatal == null}"
+            					converter="cidadeEntityConverter">
+            					<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
+            					<f:selectItems value="#{alunoBean.cidadesDoEstado}" var="cidade"
+            						itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
+            				</p:selectOneMenu>
+ 
+            				<h:outputLabel for="ufOrigem" value="UF: " />
+            				<p:selectOneMenu value="#{alunoBean.aluno.cidadeNatal.estado}">
+            					<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+            					<f:selectItems value="#{alunoBean.estados}" var="estado"
+            						itemLabel="#{estado.label}" itemValue="#{estado}"/>
+            						<p:ajax event="change" update="combo-cidades"/>
+            				</p:selectOneMenu>
+            		
+            			</h:panelGrid>
+            	
+            			<h:panelGrid columns="8" cellpadding="2">
+            			
+            				<h:outputLabel for="instituicaoEnsino" value="Instituição de Ensino: " />
+            				<h:selectOneMenu value="#{instituicaoBean}">
+            					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+            				</h:selectOneMenu>
+            	
+            				<h:outputLabel for="nivel" value="Nível: " />
+            				<h:selectOneMenu value="#{nivelBean.escolaridade}">
+            					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+            				</h:selectOneMenu>
+            	
+            				<h:outputLabel for="curso" value="Curso: " />
+            				<h:selectOneMenu value="#{cursoBean.curso.nome}">
+            					<f:selectItem itemValue="selecione" itemLabel="Selecione..." />
+            				</h:selectOneMenu>
+            			
+            				<h:outputLabel for="turma" value="Turma: " />
+							<p:inputText id="turma" size="5" value="#{turmaBean.turma}" />
+               		
+               			</h:panelGrid>
+            	
+            		</p:panel>
+            
+            		<!-- DADOS DE CONTATO -->
+            		<p:panel header="Dados de Contato">
+					<p:messages />
+			
+						<h:panelGrid columns="10" cellpadding="2">
+						
+							<h:outputLabel for="endereco" value="Endereço: " />
+							<p:inputText id="endereco" size="48" value="#{contatoBean.endereco}" label="Endereco" required="true" />
+            				<p:message for="endereco" />
+            				<h:outputText value="#{contatoBean.endereco}" />
+            			
+            				<h:outputLabel for="bairro" value="Bairro: " />
+            				<p:inputText id="bairro" size="25" value="#{contatoBean.bairro}" label="Bairro" required="true" />
+            				<p:message for="bairro" />
+            				<h:outputText value="#{contatoBean.bairro}" />
+            	
+            				<h:outputLabel for="cep" value="CEP: " />
+            				<p:inputMask id="cep" size="10" value="#{maskView.cep}" mask="99.999-999" />
+            		
+            			</h:panelGrid>
+ 				
+ 						<h:panelGrid columns="10" cellpadding="2">
+            		
+            				<h:outputLabel for="complemento" value="Complemento: " />
+            				<p:inputText id="complemento" size="40" value="#{contatoBean.complemento}" label="Complemento"/>
+            				<p:message for="complemento" />
+            				<h:outputText value="#{contatoBean.complemento}" />
+            				
+            				<h:panelGroup id="label-cidades-group">
+            					<h:outputText value="Cidade:"/>
+            				</h:panelGroup>
+            				<p:selectOneMenu id="combo-cidades" value="#{alunoBean.aluno.endereco.cidade}"
+            					disabled="#{alunoBean.aluno.endereco.cidade.estado == null}"
+            					converter="cidadeEntityConverter">
+            					<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
+            					<f:selectItems value="#{alunoBean.cidadesDoEstado}" var="cidade"
+            						itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
+            				</p:selectOneMenu>            				
+            	
+            				<h:outputLabel for="ufLocal" value="UF: " />
+            				<p:selectOneMenu value="#{alunoBean.aluno.endereco.cidade.estado}">
+            					<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+            					<f:selectItems value="#{alunoBean.estados}" var="estado"
+            						itemLabel="#{estado.label}" itemValue="#{estado}"/>
+            						<p:ajax event="change" update="combo-cidades"/>
+            				</p:selectOneMenu>
+            		
+            			</h:panelGrid>
+            	
+            			<h:panelGrid columns="8" cellpadding="2">	
+            			
+            				<p:outputLabel for="telefoneResidencial" value="Telefone Residencial:" />
+            				<p:inputMask id="telefoneResidencial" size="15" value="#{maskView.telefoneResidencial}" mask="(99) 9999-9999"/>
+            	
+            				<h:outputLabel for="contato" value="Contato: " />
+            				<p:inputText id="contato" size="58" value="#{beanValidationView.contato}" label="Contato"/>
+            				<p:message for="contato" />
+            				<h:outputText value="#{beanValidationView.contato}" />
+            		
+            			</h:panelGrid>
+            	
+            			<h:panelGrid columns="8" cellpadding="2">
+            			
+            				<p:outputLabel for="celularPrincipal" value="Telefone Celular 1:" />
+            				<p:inputMask id="celularPrincipal" size="15" value="#{maskView.celularPrincipal}" mask="(99) 9999-9999"/>
+            	
+            				<p:outputLabel for="celularOpcional" value="Telefone Celular 2:" />
+            				<p:inputMask id="celularOpcional" size="15" value="#{maskView.celularOpcional}" mask="(999) 999-9999"/>
+            		
+            				<p:outputLabel for="email" value="E-mail: " />
+            				<p:inputText id="email" required="true" label="email" size="30"
+            					requiredMessage="Por favor, digite o seu endereço de email."
+            					validatorMessage="Formato de email inválido"
+            					value="#{userBean.email}">            		
+            					<f:validateRegex
+            						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+            				</p:inputText>
+            				<p:watermark for="email" value="Endereço de Email " />
+            				<p:message for="email" />
+            			
+            			</h:panelGrid>
+            
+            		</p:panel>
+            
+            		<!-- DADOS DO ESTÁGIO/ATIVIDADE -->
+            		<p:panel header="Dados do Estágio/Atividade">
+					<p:messages />
+			
+						<h:panelGrid columns="4" cellpadding="2">
+
+            				<h:outputLabel for="estagioAtividade" value="Estágio/Atividade: " />
+            				<h:selectOneMenu value="#{beanValidationView.estagioAtividade}">
+            					<f:selectItem itemValue="selecione" itemLabel="Selecione..." />
+               				</h:selectOneMenu>
+               	
+               				<h:outputLabel for="programa" value="Programa: " />
+            				<h:selectOneMenu value="#{beanValidationView.programa}">
+            					<f:selectItem itemValue="selecione" itemLabel="Selecione..." />
+               				</h:selectOneMenu>
+               		
+               			</h:panelGrid>
+               		
+              			<h:panelGrid columns="6" cellpadding="2">
+            		          		
+            				<p:outputLabel for="button" value="Data de Início:" />
+            				<p:calendar locale="pt" id="button" size="10"
+            					pattern="dd/MM/yyyy" mask="true" 
+            					value="#{calendarView.date3}" showOn="button" />
+            	            		
+            				<p:outputLabel for="button" value="Data de Término:" />
+            				<p:calendar locale="pt" id="button" size="10"
+            					pattern="dd/MM/yyyy" mask="true" 
+            					value="#{calendarView.date3}" showOn="button" />
+            			</h:panelGrid>
+            	
+            			<h:panelGrid columns="8" cellpadding="2">
+            		
+            				<h3 style="margin-top:0px">Horários: </h3>
+            				<p:selectManyCheckbox id="horarios" value="#{checkboxView.selectedConsoles}">
+            					<f:selectItem itemLabel="Matutino" itemValue="matutino" />
+            					<f:selectItem itemLabel="Vespertino" itemValue="vespertino" />
+            					<f:selectItem itemLabel="Noturno" itemValue="noturno" />
+            				</p:selectManyCheckbox>
+            		
+            			</h:panelGrid>
+            	
+            			<h:panelGrid columns="8" cellpadding="2">
+            		
+            				<h3 style="margin-top:0px">Dias da Semana: </h3>
+            				<p:selectManyCheckbox id="diasDaSemana" value="#{estagioAtividadeBean.entity.dias}">
+            					<f:selectItems value="#{estagioAtividadeBean.availableValues}"
+            						var="dias">
+            						<f:selectItem itemLabel="Segunda-Feira" itemValue="#segunda" />
+           		 					<f:selectItem itemLabel="Terça-Feira" itemValue="terca" />
+            						<f:selectItem itemLabel="Quarta-Feira" itemValue="quarta" />
+            						<f:selectItem itemLabel="Quinta-Feira" itemValue="quinta" />
+            						<f:selectItem itemLabel="Sexta-Feira" itemValue="sexta" />
+            						<f:selectItem itemLabel="Sábado" itemValue="sabado" />
+            						<f:selectItem itemLabel="Domingo" itemValue="domingo" />
+            					</f:selectItems>
+        	    			</p:selectManyCheckbox>
+            		
+            			</h:panelGrid>            
+         
+            			<h:panelGrid columns="8" cellpadding="2">
+            		
+            				<h3 style="margin-top:0px">Alunos usará: </h3>
+         		   			<p:selectManyCheckbox id="usoAluno" value="#{checkboxView.selectedConsoles}">
+            					<f:selectItem itemLabel="Biblioteca" itemValue="biblioteca" />
+            					<f:selectItem itemLabel="Estacionamento" itemValue="estacionamento" />
+            				</p:selectManyCheckbox>
+            		
+            			</h:panelGrid>
+            	
+            			<h:panelGrid columns="12" cellpadding="2">
+            		
+            				<h:outputLabel for="local" value="Local: " />
+            				<h:selectOneMenu value="#{beanValidationView.local}">
+            					<f:selectItem itemValue="selecione" itemLabel="Selecione..." />
+               				</h:selectOneMenu>
+               	
+               				<h:outputLabel for="periodoInicial" value="Início: "/>                                
+            				<p:inputMask id="periodoInicial" size="10" value="#{beanValidationView.periodoInicial}" mask="99/99/9999">
+            				</p:inputMask> 
+            				<p:message for="periodoInicial" />
+            				<h:outputText/>
+            	
+            				<h:outputLabel for="periodoFinal" value="Fim: "/>                                
+            				<p:inputMask id="periodoFinal" size="10" value="#{beanValidationView.periodoFinal}" mask="99/99/9999">
+           		 			</p:inputMask> 
+            				<p:message for="periodoFinal" />
+            				<h:outputText/>            	
+            				<p:commandButton value="Adicionar" ajax="false" icon="ui-icon-check" validateClient="true"/>
+        			
+        				</h:panelGrid>
+ 
+        				<p:commandButton value="Fechar" ajax="false" icon="ui-icon-check" validateClient="true"/>
+        				<p:commandButton value="Gravar" ajax="false" icon="ui-icon-check" validateClient="true"/>
+    			
+    				</p:panel>
+    		
+    			</h:panelGrid>
+		
+			</h:form>
+		
+		</ui:define>
+	
+</ui:composition>

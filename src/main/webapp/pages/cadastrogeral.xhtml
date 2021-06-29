@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/layout.xhtml">
+			
+			<ui:define name="corpo">
+				
+				<h:form id="frm">
+								
+				<br />
+				<br />
+					
+					<h:panelGrid columns="1" cellpadding="2">
+						
+						<p:panel id="cadastro-geral-panel" header="Cadastro Geral" style="margin-bottom:20px">
+						
+							<p:panelGrid columns="2" style="width:95%;">
+							
+								<h:commandLink action="#{cursoBean}">
+									<h:graphicImage library="images" name="btn_cursos_academicos.png" />
+								</h:commandLink>
+								
+								<h:commandLink action="#{instituicaoBean}">
+									<h:graphicImage library="images" name="btn_instituicoes_ensino.png" />
+								</h:commandLink>
+								
+								<h:commandLink action="#{estagioAtividadeBean}">
+									<h:graphicImage library="images" name="btn_estagios_atividades.png" />
+								</h:commandLink>
+								
+								<h:commandLink action="#{locaisBean}">
+									<h:graphicImage library="images" name="btn_locais_atividades.png" />
+								</h:commandLink>				
+							
+							</p:panelGrid>
+							<br/>
+
+						</p:panel>
+					
+					</h:panelGrid>
+					
+				</h:form>
+				
+			</ui:define>
+			
+</ui:composition>

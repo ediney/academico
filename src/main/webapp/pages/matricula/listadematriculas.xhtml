@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/layout.xhtml">
+			
+			<ui:define name="corpo">
+				
+				<h:form id="frm">								
+				<br />
+				<br />
+					<p:panel header="Lista de Matrículas" rendered="#{matriculaBean.matricula == null}">
+						<p:commandButton value="Nova Matricula" action="#{matriculaBean.novaMatricula}" update="matricula_form"
+							icon="adicionar-icon"/>
+			
+				<br/><br/>
+					<p:panelGrid columns="2">
+						<h:outputText value="Aluno:"/>
+							<p:selectOneMenu value="#{matriculaBean.parametros.aluno}"
+								filter="true" filterMatchMode="contains" converter="alunoConverter" style="width:250px;">
+								<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+									<f:selectItems value="#{matriculaBean.alunos}" var="aluno"
+										itemLabel="#{aluno.nome}" itemValue="#{aluno}"/>
+							</p:selectOneMenu>
+						<h:outputText value="Cursos:"/>
+						<p:selectCheckboxMenu label="Cursos" value="#{matriculaBean.parametros.cursos}" 
+							converter="cursoConverter" style="width:250px;" panelStyle="width:350px;"
+							filter="true" filterMatchMode="contains">
+							<f:selectItems value="#{matriculaBean.cursos}" var="curso"
+								itemLabel="#{curso.nome}"/>
+						</p:selectCheckboxMenu>
+						<h:outputText value="Data:"/>
+					<h:panelGroup>
+						<h:outputText value="De "/>
+						<p:calendar value="#{matriculaBean.parametros.dataInicial}" size="10"
+							mask="99/99/9999" pattern="dd/MM/yyyy"/>
+						<h:outputText value=" até "/>
+						<p:calendar value="#{matriculaBean.parametros.dataFinal}" size="10"
+							mask="99/99/9999" pattern="dd/MM/yyyy"/>
+					</h:panelGroup>
+				</p:panelGrid>
+				<br/>
+				<p:commandButton value="Pesquisar" icon="fa fa-search" action="#{matriculaBean.pesquisar}"
+						update="tabela-matriculas"/>
+		
+						<p:dataTable value="#{matriculaBean.matriculaVos}" var="matricula" style="margin-top:10px; width:60%"
+								emptyMessage="Nenhuma matrícula cadastrada" id="tabela-matriculas">
+							<p:column headerText="Número" width="100" filterBy="#{matricula.numero}" 
+									filterMatchMode="contains">
+								<h:outputText value="#{matricula.numero}"/>
+							</p:column>
+							<p:column headerText="Aluno">
+								<h:outputText value="#{matricula.nomeAluno}"/>
+							</p:column>
+							<p:column headerText="Curso" width="250">
+								<h:outputText value="#{matricula.nomeCurso}"/>
+							</p:column>
+							<p:column headerText="Data" width="80">
+								<h:outputText value="#{matricula.data}">
+									<f:convertDateTime pattern="dd/MM/yyyy"/>
+								</h:outputText>
+							</p:column>
+							<p:column width="50" style="text-align:center">
+								<p:commandButton icon="editar-icon" action="#{matriculaBean.editar(matricula.id)}"
+									 update=":matricula_form"/>
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				
+				</h:form>
+			</ui:define>
+</ui:composition>

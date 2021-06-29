@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/layout.xhtml">
+			
+		<ui:define name="corpo">
+				
+			<h:form id="frm">								
+				<br />
+				<br />
+				<p:growl id="mensagem" />
+				
+				<h:form id="formListagem">
+					<p:panel header="Cidades - Listagem">
+						<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+							paginator="true" value="#{cidadeBean.cidades}" var="cidade" rows="5">
+							<f:facet name="header">
+								<p:commandButton value="Novo" actionListener="#{cidadeBean.novo}"
+									oncomplete="PF('dialogo').show();"
+									update=":mensagem :formCadastro:painel" />
+							</f:facet>
+
+							<p:column headerText="Nome" filterBy="#{cidade.nome}"
+								sortBy="#{cidade.nome}">
+								<h:outputText value="#{cidade.nome}" />
+							</p:column>
+
+							<p:column headerText="Estado" filterBy="#{cidade.estado.nome}"
+								sortBy="#{cidade.estado.nome}">
+								<h:outputText value="#{cidade.estado.nome}" />
+								<h:outputText value=" - " />
+								<h:outputText value="#{cidade.estado.sigla}" />
+							</p:column>
+
+							<p:column headerText="Opções">
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</h:form>
+
+				<p:dialog header="Cidades - Cadastro" widgetVar="dialogo"
+					draggable="false" resizable="false" modal="true" closable="false">
+					<h:form id="formCadastro">
+						<h:panelGrid id="painel" columns="2">
+							<p:outputLabel value="Nome:" />
+							<p:inputText maxlength="50" size="30"
+								value="#{cidadeBean.cidade.nome}" />
+
+							<p:outputLabel value="Estado:" />
+							<p:selectOneMenu filter="true" value="#{cidadeBean.cidade.estado}">
+								<f:selectItem noSelectionOption="true" itemLabel="Selecione um estado" />
+								<f:selectItems value="#{cidadeBean.estados}" var="estado"
+									itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+
+						<h:panelGrid columns="2">
+							<p:commandButton value="Salvar" actionListener="#{cidadeBean.salvar}"
+								update=":mensagem :formCadastro:painel :formListagem:tabela" />
+							<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+						</h:panelGrid>
+					</h:form>
+				</p:dialog>
+				
+			</h:form>
+		</ui:define>
+</ui:composition>

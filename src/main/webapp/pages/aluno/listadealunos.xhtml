@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/layout.xhtml">
+			
+			<ui:define name="corpo">
+				
+				<h:form id="frm">								
+				<br />
+				<br />
+				<p:dataTable paginator="true" rows="15" paginatorPosition="bottom" 
+						paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink}"
+						paginatorAlwaysVisible="false" var="aluno" value="#{alunoBean.alunos}">
+				
+				<f:facet name="header">Gestão de Alunos</f:facet>
+				
+				<p:column headerText="RGA">
+					<h:outputText value="#{aluno.registroRGA.rga}" />
+				</p:column>
+				
+				<p:column headerText="Nome" filterBy="#{aluno.nome}">
+					<h:outputText value="#{aluno.nome}" />
+				</p:column>
+				
+				<p:column headerText="Turma" filterBy="#{aluno.idTurma.idTurma}">
+					<h:outputText value="#{aluno.idTurma.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Opções">
+					<p:commandButton update=":form:detalhes" oncomplete="PF('detalhes').show()" icon="ui-icon-search" value="Detalhes" title="Detalhes">
+		                <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.aluno}" />
+		            </p:commandButton>
+		            
+					<p:commandButton action="#{alunoBean.deletar}" process="@this" update="@form" icon="ui-icon-trash" value="Excluir" title="Excluir">
+						<p:confirm header="Excluir aluno" message="Tem certeza?" icon="ui-icon-alert" />
+						<f:setPropertyActionListener target="#{alunoBean.aluno}" value="#{aluno}" />
+					</p:commandButton>
+					
+					<p:commandButton action="alterar-aluno" icon="ui-icon-pencil" value="Alterar" title="Alterar">
+						<f:setPropertyActionListener target="#{alunoBean.aluno}" value="#{aluno}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:dialog id="detalhes" header="Detalhes" widgetVar="detalhes" modal="true" closable="true" resizable="false" draggable="false"> 
+				<h:panelGrid columns="2" cellpadding="2">
+					<h:outputText value="RGA: " />
+					<h:outputText value="#{alunoBean.aluno.registroRGA.rga}" />
+					
+					<h:outputText value="Data da Matrícula: " />
+					<h:outputText value="#{alunoBean.aluno.registroRGA.dataMatricula}" />
+					
+					<h:outputText value="Nome: " />
+					<h:outputText value="#{alunoBean.aluno.nome}" />
+					
+					<h:outputText value="Turma: " />
+					<h:outputText value="#{alunoBean.aluno.idTurma.descricao}" />
+					
+					<h:outputText value="CPF: " />
+					<h:outputText value="#{alunoBean.aluno.cpf}" />
+					
+					<h:outputText value="Data de Nascimento: " />
+					<h:outputText value="#{alunoBean.aluno.dataNascimento}" />
+					
+					<h:outputText value="Sexo: " />
+					<h:outputText value="#{alunoBean.aluno.sexo}" />
+					
+					<h:outputText value="E-Mail: " />
+					<h:outputText value="#{alunoBean.aluno.email}" />
+					
+					<h:outputText value="Endereço: " />
+					<h:outputText value="#{alunoBean.aluno.endereco.logradouro}" />
+					
+					<h:outputText value="Cidade: " />
+					<h:outputText value="#{alunoBean.aluno.endereco.cidade}" />
+					
+					<h:outputText value="Estado: " />
+					<h:outputText value="#{alunoBean.aluno.endereco.cidade.estado}" />
+				</h:panelGrid>
+			</p:dialog>
+				
+				</h:form>
+			</ui:define>
+</ui:composition>

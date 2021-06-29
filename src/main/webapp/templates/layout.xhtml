@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ez="http://xmlns.jcp.org/jsf/composite/demo"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<meta charset="UTF-8" content=""/>
+
+		<h:outputStylesheet library="css" name="estilo.css" />
+		<h:outputStylesheet library="css" name="table.css" />
+		<h:outputStylesheet library="css" name="botoes.css" />
+
+		<script>
+			PrimeFaces.locales['pt'] = {
+				closeText : 'Fechar',
+				prevText : 'Anterior',
+				nextText : 'Próximo',
+				currentText : 'Começo',
+				monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+								'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+								'Novembro', 'Dezembro' ],
+				monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+				    				'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+				dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado' ],
+				dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+				dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+				weekHeader : 'Semana',
+				firstDay : 0,
+				isRTL : false,
+				showMonthAfterYear : false,
+				yearSuffix : '',
+				timeOnlyTitle : 'Só Horas',
+				timeText : 'Tempo',
+				hourText : 'Hora',
+				minuteText : 'Minuto',
+				secondText : 'Segundo',
+				ampm : false,
+				month : 'Mês',
+				week : 'Semana',
+				day : 'Dia',
+				allDayText : 'Todo o Dia'
+			};
+		</script>
+
+	</h:head>
+	
+	<h:body>
+	
+		<header>
+			<div>
+				<h:graphicImage library="images" name="LogoHujm100x328.png" />
+				<br />
+				<h:graphicImage library="images" name="btn_menu_Inicio.png" />
+				<h:graphicImage library="images" name="btn_menu_alunos.png" />
+				<h:graphicImage library="images" name="btn_menu_cadastros.png" />
+				<h:graphicImage library="images" name="btn_menu_relatorios.png" />
+			</div>
+		</header>
+		
+		<div style="height: 20px;"/>
+
+		<div id="conteudo">
+			<ui:insert name="corpo" />
+		</div>
+	
+		<!-- 			
+		RODAPÉ
+		<footer>Hospital Universitário Júlio Müller</footer>
+		-->
+		
+	</h:body>
+</html>
